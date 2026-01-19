@@ -10,7 +10,7 @@ const projects = [
     tags: ['UI Design', 'Documentation', 'User Flow'],
     links: {
       demo: 'https://www.figma.com',
-      code: null,//redeploy trigger
+      code: null,
     },
   },
   {
@@ -38,8 +38,8 @@ const projects = [
 export function Projects() {
   const [ref, isVisible] = useScrollAnimation<HTMLDivElement>();
 
-  const isValidLink = (link: string | null | undefined): link is string =>
-    !!link && link !== '#' && link.length > 0;
+  const isValidLink = (link?: string | null) =>
+    typeof link === 'string' && link.length > 0;
 
   return (
     <section id="projects" className="py-24 px-6">
@@ -52,14 +52,12 @@ export function Projects() {
           {projects.map((project, index) => (
             <div
               key={project.title}
-              className={`glass-card rounded-2xl overflow-hidden group cursor-pointer hover:scale-[1.02] hover:shadow-xl hover:shadow-primary/10 ${
-                isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+              className={`glass-card rounded-2xl overflow-hidden transition-all duration-700 ${
+                isVisible
+                  ? 'opacity-100 translate-y-0'
+                  : 'opacity-0 translate-y-10'
               }`}
-              style={{
-                transitionDelay: isVisible ? `${index * 150}ms` : '0ms',
-                transition:
-                  'all 0.6s ease-out, transform 0.3s ease, box-shadow 0.3s ease',
-              }}
+              style={{ transitionDelay: `${index * 150}ms` }}
             >
               <div className="h-48 bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center">
                 <Folder className="w-16 h-16 text-muted-foreground" />
@@ -70,7 +68,7 @@ export function Projects() {
                   {project.title}
                 </h3>
 
-                <p className="text-muted-foreground text-sm mb-4 line-clamp-3">
+                <p className="text-muted-foreground text-sm mb-4">
                   {project.description}
                 </p>
 
@@ -86,38 +84,14 @@ export function Projects() {
                 </div>
 
                 <div className="flex gap-3">
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    asChild={isValidLink(project.links.code)}
-                    disabled={!isValidLink(project.links.code)}
-                  >
-                    {isValidLink(project.links.code) ? (
-                      <a href={project.links.code} target="_blank">
-                        <Github className="h-4 w-4 mr-1" /> Code
-                      </a>
-                    ) : (
-                      <>
-                        <Github className="h-4 w-4 mr-1" /> Code
-                      </>
-                    )}
+                  <Button variant="ghost" size="sm" disabled={!isValidLink(project.links.code)}>
+                    <Github className="h-4 w-4 mr-1" />
+                    Code
                   </Button>
 
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    asChild={isValidLink(project.links.demo)}
-                    disabled={!isValidLink(project.links.demo)}
-                  >
-                    {isValidLink(project.links.demo) ? (
-                      <a href={project.links.demo} target="_blank">
-                        <ExternalLink className="h-4 w-4 mr-1" /> Demo
-                      </a>
-                    ) : (
-                      <>
-                        <ExternalLink className="h-4 w-4 mr-1" /> Demo
-                      </>
-                    )}
+                  <Button variant="ghost" size="sm" disabled={!isValidLink(project.links.demo)}>
+                    <ExternalLink className="h-4 w-4 mr-1" />
+                    Demo
                   </Button>
                 </div>
               </div>
