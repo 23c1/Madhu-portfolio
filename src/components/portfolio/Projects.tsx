@@ -5,29 +5,32 @@ import { Button } from '@/components/ui/button';
 const projects = [
   {
     title: 'HappyPath',
-    description: 'Designed clean, user-friendly UI layouts and structured documentation explaining user flow and features.',
+    description:
+      'Designed clean, user-friendly UI layouts and structured documentation explaining user flow and features.',
     tags: ['UI Design', 'Documentation', 'User Flow'],
     links: {
-      demo: 'https://www.figma.com', // Replace with actual Figma/demo link
-      code: null, // No code available
+      demo: 'https://www.figma.com',
+      code: null,//redeploy trigger
     },
   },
   {
     title: 'Disaster Management & Prediction System',
-    description: 'Designed visual components and created structured documentation for communicating system features and flow.',
+    description:
+      'Designed visual components and created structured documentation for communicating system features and flow.',
     tags: ['Visual Design', 'System Design', 'Documentation'],
     links: {
-      demo: 'https://india-safe-zone-sync-26-git-main-madhus-projects-599baa0c.vercel.app' 
-      code: null, 
+      demo: 'https://india-safe-zone-sync-26-git-main-madhus-projects-599baa0c.vercel.app',
+      code: null,
     },
   },
   {
     title: 'Portfolio Website',
-    description: 'Personal portfolio showcasing my design work and projects. Built with modern web technologies.',
+    description:
+      'Personal portfolio showcasing my design work and projects. Built with modern web technologies.',
     tags: ['Web Design', 'HTML/CSS', 'Responsive'],
     links: {
-      demo: null, 
-      code: 'https://github.com' 
+      demo: null,
+      code: 'https://github.com',
     },
   },
 ];
@@ -35,9 +38,8 @@ const projects = [
 export function Projects() {
   const [ref, isVisible] = useScrollAnimation<HTMLDivElement>();
 
-  const isValidLink = (link: string | null | undefined): link is string => {
-    return !!link && link !== '#' && link.length > 0;
-  };
+  const isValidLink = (link: string | null | undefined): link is string =>
+    !!link && link !== '#' && link.length > 0;
 
   return (
     <section id="projects" className="py-24 px-6">
@@ -46,10 +48,7 @@ export function Projects() {
           Featured <span className="gradient-text">Projects</span>
         </h2>
 
-        <div
-          ref={ref}
-          className="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
-        >
+        <div ref={ref} className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {projects.map((project, index) => (
             <div
               key={project.title}
@@ -58,93 +57,68 @@ export function Projects() {
               }`}
               style={{
                 transitionDelay: isVisible ? `${index * 150}ms` : '0ms',
-                transition: 'all 0.6s ease-out, transform 0.3s ease, box-shadow 0.3s ease',
+                transition:
+                  'all 0.6s ease-out, transform 0.3s ease, box-shadow 0.3s ease',
               }}
             >
-              {/* Project Image Placeholder */}
-              <div className="h-48 bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center group-hover:from-primary/30 group-hover:to-accent/30 transition-all duration-300">
-                <Folder className="w-16 h-16 text-muted-foreground group-hover:scale-110 transition-transform duration-300" />
+              <div className="h-48 bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center">
+                <Folder className="w-16 h-16 text-muted-foreground" />
               </div>
 
               <div className="p-6">
-                <h3 className="text-xl font-semibold mb-3 text-foreground">
+                <h3 className="text-xl font-semibold mb-3">
                   {project.title}
                 </h3>
+
                 <p className="text-muted-foreground text-sm mb-4 line-clamp-3">
                   {project.description}
                 </p>
 
-                {/* Tags */}
                 <div className="flex flex-wrap gap-2 mb-4">
                   {project.tags.map((tag) => (
                     <span
                       key={tag}
-                      className="text-xs px-3 py-1 rounded-full bg-primary/10 text-primary font-medium"
+                      className="text-xs px-3 py-1 rounded-full bg-primary/10 text-primary"
                     >
                       {tag}
                     </span>
                   ))}
                 </div>
 
-                {/* Links */}
                 <div className="flex gap-3">
-                  {isValidLink(project.links.code) ? (
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      asChild
-                      className="text-muted-foreground hover:text-foreground hover:bg-primary/10"
-                    >
-                      <a 
-                        href={project.links.code} 
-                        target="_blank" 
-                        rel="noopener noreferrer"
-                        onClick={(e) => e.stopPropagation()}
-                      >
-                        <Github className="h-4 w-4 mr-1" />
-                        Code
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    asChild={isValidLink(project.links.code)}
+                    disabled={!isValidLink(project.links.code)}
+                  >
+                    {isValidLink(project.links.code) ? (
+                      <a href={project.links.code} target="_blank">
+                        <Github className="h-4 w-4 mr-1" /> Code
                       </a>
-                    </Button>
-                  ) : (
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      disabled
-                      className="text-muted-foreground/50 cursor-not-allowed"
-                    >
-                      <Github className="h-4 w-4 mr-1" />
-                      Code
-                    </Button>
-                  )}
-                  
-                  {isValidLink(project.links.demo) ? (
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      asChild
-                      className="text-muted-foreground hover:text-foreground hover:bg-primary/10"
-                    >
-                      <a 
-                        href={project.links.demo} 
-                        target="_blank" 
-                        rel="noopener noreferrer"
-                        onClick={(e) => e.stopPropagation()}
-                      >
-                        <ExternalLink className="h-4 w-4 mr-1" />
-                        Demo
+                    ) : (
+                      <>
+                        <Github className="h-4 w-4 mr-1" /> Code
+                      </>
+                    )}
+                  </Button>
+
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    asChild={isValidLink(project.links.demo)}
+                    disabled={!isValidLink(project.links.demo)}
+                  >
+                    {isValidLink(project.links.demo) ? (
+                      <a href={project.links.demo} target="_blank">
+                        <ExternalLink className="h-4 w-4 mr-1" /> Demo
                       </a>
-                    </Button>
-                  ) : (
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      disabled
-                      className="text-muted-foreground/50 cursor-not-allowed"
-                    >
-                      <ExternalLink className="h-4 w-4 mr-1" />
-                      Demo
-                    </Button>
-                  )}
+                    ) : (
+                      <>
+                        <ExternalLink className="h-4 w-4 mr-1" /> Demo
+                      </>
+                    )}
+                  </Button>
                 </div>
               </div>
             </div>
