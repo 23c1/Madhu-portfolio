@@ -17,8 +17,8 @@ const projects = [
     description: 'Designed visual components and created structured documentation for communicating system features and flow.',
     tags: ['Visual Design', 'System Design', 'Documentation'],
     links: {
-      demo: 'https://www.figma.com', // Replace with actual Figma/demo link
-      code: null, // No code available
+      demo: 'https://india-safe-zone-sync-26-git-main-madhus-projects-599baa0c.vercel.app' 
+      code: null, 
     },
   },
   {
@@ -26,8 +26,8 @@ const projects = [
     description: 'Personal portfolio showcasing my design work and projects. Built with modern web technologies.',
     tags: ['Web Design', 'HTML/CSS', 'Responsive'],
     links: {
-      demo: null, // This portfolio itself
-      code: 'https://github.com', // Replace with actual GitHub link
+      demo: null, 
+      code: 'https://github.com' 
     },
   },
 ];
